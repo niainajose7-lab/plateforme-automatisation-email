@@ -10,6 +10,7 @@ import auth
 import emails
 import regles
 import api_admin
+import api_client
 import automatisation
 
 
@@ -33,6 +34,7 @@ app.include_router(auth.router)
 app.include_router(emails.router)
 app.include_router(regles.router)
 app.include_router(api_admin.router)
+app.include_router(api_client.router)
 
 
 @app.get("/")

@@ -6,42 +6,56 @@ import SuiviEmails from "./SuiviEmails";
 import Categories from "./Categories";
 import Clients from "./Clients";
 import Alertes from "./Alertes";
+import EspaceClient from "./EspaceClient";
 
 export default function App() {
   const [jeton, setJeton] = useState(lireJeton());
+  const [moi, setMoi] = useState(null);
+  const [erreurMoi, setErreurMoi] = useState("");
   const [page, setPage] = useState("accueil");
   const [serveur, setServeur] = useState(null);
   const [compteurs, setCompteurs] = useState({ a_valider: 0, alertes: 0 });
-  const [refus, setRefus] = useState("");
 
   const deconnecter = useCallback(() => {
     enregistrerJeton("");
     setJeton("");
+    setMoi(null);
   }, []);
 
   function connecter(nouveau) {
     enregistrerJeton(nouveau);
+    setMoi(null);
+    setErreurMoi("");
     setJeton(nouveau);
-    setRefus("");
   }
+
+  useEffect(() => {
+    if (!jeton) return;
+    appeler("/client/moi", { jeton })
+      .then(setMoi)
+      .catch((e) => {
+        if (e.statut === 401) deconnecter();
+        else setErreurMoi(e.message);
+      });
+  }, [jeton, deconnecter]);
+
+  const admin = moi && moi.role === "admin";
 
   useEffect(() => {
     let actif = true;
     function verifier() {
       fetch(API + "/").then((r) => actif && setServeur(r.ok)).catch(() => actif && setServeur(false));
-      if (!jeton) return;
+      if (!jeton || !admin) return;
       appeler("/admin/tableau", { jeton })
         .then((d) => actif && setCompteurs({ a_valider: d.totaux.a_valider, alertes: d.alertes_ouvertes }))
         .catch((e) => {
-          if (!actif) return;
-          if (e.statut === 401) deconnecter();
-          if (e.statut === 403) setRefus(e.message);
+          if (actif && e.statut === 401) deconnecter();
         });
     }
     verifier();
     const t = setInterval(verifier, 15000);
     return () => { actif = false; clearInterval(t); };
-  }, [jeton, deconnecter]);
+  }, [jeton, admin, deconnecter]);
 
   if (!jeton)
     return (
@@ -50,6 +64,18 @@ export default function App() {
         <Connexion onConnecte={connecter} />
       </>
     );
+
+  if (!moi)
+    return (
+      <div className="centre">
+        <div className="carte">
+          <p className={erreurMoi ? "erreur" : "aide"}>{erreurMoi || "Chargement..."}</p>
+          {erreurMoi && <button className="secondaire" onClick={deconnecter}>Retour à la connexion</button>}
+        </div>
+      </div>
+    );
+
+  if (!admin) return <EspaceClient jeton={jeton} moi={moi} onDeconnexion={deconnecter} />;
 
   const items = [
     ["accueil", "Tableau de bord", 0, ""],
@@ -84,7 +110,6 @@ export default function App() {
         </div>
       </aside>
       <main className="contenu">
-        {refus && <div className="bandeau-alerte">{refus}</div>}
         {page === "accueil" && <Accueil {...p} />}
         {page === "suivi" && <SuiviEmails {...p} />}
         {page === "categories" && <Categories {...p} />}

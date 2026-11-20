@@ -1,11 +1,11 @@
-import json
+﻿import json
 import re
 import unicodedata
 
 import torch
 import torch.nn as nn
 
-CLASSES = ["facture", "reclamation", "demande", "autre"]
+CLASSES = ["facture", "reclamation", "devis", "commande", "bourse", "reunion", "support", "candidature", "information", "autre"]
 SEUIL_DOUTE = 0.6
 
 
@@ -69,3 +69,4 @@ def predire(modele, vocab, objet, extrait, expediteur, texte_pj=None):
     if conf < SEUIL_DOUTE and CLASSES[i] != "autre":
         return "autre", conf
     return CLASSES[i], conf
+

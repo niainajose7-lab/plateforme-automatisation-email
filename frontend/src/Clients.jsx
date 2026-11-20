@@ -44,6 +44,13 @@ export default function Clients({ jeton, onDeconnexion }) {
     }
   }
 
+  async function acces(c) {
+    const mdp = window.prompt("Mot de passe de l'espace client pour " + c.nom + " (6 caractères minimum) :");
+    if (!mdp) return;
+    if (await appel("/client/comptes", "POST", { client_id: c.id, mot_de_passe: mdp })) {
+      window.alert("Accès créé. Connexion avec : " + c.email);
+    }
+  }
   const visibles = clients.filter(
     (c) =>
       (filtre === "tous" || (filtre === "actifs" ? c.actif : !c.actif)) &&
@@ -74,7 +81,7 @@ export default function Clients({ jeton, onDeconnexion }) {
           </div>
           <div className="tableau-w">
             <table>
-              <thead><tr><th>Identifiant</th><th>Nom</th><th>Email</th><th>Emails</th><th>Statut</th><th></th></tr></thead>
+              <thead><tr><th>Identifiant</th><th>Nom</th><th>Email</th><th>Emails</th><th>Statut</th><th>Accès</th><th></th></tr></thead>
               <tbody>
                 {visibles.map((c) => (
                   <tr key={c.id} style={{ color: c.actif ? undefined : "#667085" }}>
@@ -82,7 +89,7 @@ export default function Clients({ jeton, onDeconnexion }) {
                     <td><b>{c.nom}</b></td>
                     <td>{c.email}</td>
                     <td>{c.nb_emails}</td>
-                    <td><span className={"badge " + (c.actif ? "ok" : "")}>{c.actif ? "Actif" : "Désactivé"}</span></td>
+                    <td><span className={"badge " + (c.actif ? "ok" : "")}>{c.actif ? "Actif" : "Désactivé"}</span></td><td><button className="contour bleu" onClick={() => acces(c)}>Créer / changer</button></td>
                     <td>
                       <button className={"contour " + (c.actif ? "rouge" : "bleu")} onClick={() => appel("/admin/clients/" + c.id, "PATCH", { actif: !c.actif })}>
                         {c.actif ? "Désactiver" : "Réactiver"}
@@ -123,3 +130,4 @@ export default function Clients({ jeton, onDeconnexion }) {
     </>
   );
 }
+

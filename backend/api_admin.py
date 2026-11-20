@@ -70,7 +70,7 @@ def tableau(authorization: str = Header(default=""), db: Session = Depends(get_d
     maintenant = datetime.now(timezone.utc)
     debut = (maintenant - timedelta(days=6)).replace(hour=0, minute=0, second=0, microsecond=0)
 
-    tous = db.query(Email).filter(Email.boite_mail_id == boite.id).all()
+    tous = db.query(Email).filter(Email.boite_mail_id == boite.id, or_(Email.motif.is_(None), Email.motif.notin_(("copie systeme", "notification systeme")))).all()
     total = {"recus": len(tous), "retenus": 0, "non_retenus": 0,
              "a_valider": 0, "bloques": 0, "rejetes": 0, "inconnus": 0}
     cles = {"retenu": "retenus", "non_retenu": "non_retenus", "a_valider": "a_valider",
@@ -97,13 +97,13 @@ def tableau(authorization: str = Header(default=""), db: Session = Depends(get_d
 
     cats = {c.code: c.nom for c in db.query(Categorie).all()}
     categories = [
-        {"code": k, "nom": cats.get(k, k), "nombre": v}
+        {"code": k, "nom": cats.get(k, {"publicite": "Publicité", "dangereux": "Dangereux"}.get(k, k)), "nombre": v}
         for k, v in sorted(par_categorie.items(), key=lambda x: -x[1])
     ]
 
     recents = (
         db.query(Email).filter(Email.boite_mail_id == boite.id)
-        .order_by(Email.date_sync.desc()).limit(6).all()
+        .filter(or_(Email.motif.is_(None), Email.motif.notin_(("copie systeme", "notification systeme")))).order_by(Email.date_sync.desc()).limit(6).all()
     )
     clients = noms_clients(db, user)
     derniers = [
@@ -126,7 +126,7 @@ def liste_emails(
     authorization: str = Header(default=""), db: Session = Depends(get_db),
 ):
     user, boite = admin_et_boite(authorization, db)
-    req = db.query(Email).filter(Email.boite_mail_id == boite.id)
+    req = db.query(Email).filter(Email.boite_mail_id == boite.id, or_(Email.motif.is_(None), Email.motif.notin_(("copie systeme", "notification systeme"))))
     if q:
         motif = "%" + q + "%"
         req = req.filter(or_(Email.objet.ilike(motif), Email.expediteur.ilike(motif)))
@@ -438,3 +438,4 @@ def traiter_alerte(alerte_id: uuid.UUID, authorization: str = Header(default="")
     a.traitee = True
     db.commit()
     return {"ok": True}
+

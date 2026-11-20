@@ -90,3 +90,100 @@ def mes_emails(authorization: str = EnteteHttp(default=""), db: Session = Depend
     return res
 
 
+class PieceEnvoi(BaseModel):
+    nom: str
+    type: str = "application/octet-stream"
+    donnees_base64: str
+
+
+class MessageClient(BaseModel):
+    objet: str
+    corps: str
+    piece_jointe: Optional[PieceEnvoi] = None
+
+
+@router.post("/envoyer")
+def envoyer(payload: MessageClient, authorization: str = EnteteHttp(default=""),
+            db: Session = Depends(get_db)):
+    user, client = client_connecte(authorization, db)
+    if not client.actif:
+        raise HTTPException(status_code=403, detail="Votre compte est desactive")
+    if not payload.objet.strip() or not payload.corps.strip():
+        raise HTTPException(status_code=400, detail="Objet et message obligatoires")
+    boite = db.query(BoiteMail).filter(BoiteMail.utilisateur_id == client.proprietaire_id).first()
+    if not boite:
+        raise HTTPException(status_code=503, detail="La plateforme n'est pas disponible")
+
+    msg = MIMEMultipart()
+    msg["To"] = boite.adresse_email
+    msg["Subject"] = Header(payload.objet.strip(), "utf-8")
+    msg["Reply-To"] = client.email
+    msg["X-AutoMail-Client"] = client.identifiant
+    msg.attach(MIMEText(payload.corps, "plain", "utf-8"))
+
+    if payload.piece_jointe:
+        try:
+            donnees = base64.b64decode(payload.piece_jointe.donnees_base64, validate=True)
+        except Exception:
+            raise HTTPException(status_code=400, detail="Piece jointe illisible")
+        if len(donnees) > TAILLE_MAX:
+            raise HTTPException(status_code=400, detail="Piece jointe trop volumineuse (5 Mo maximum)")
+        genre, _, sous = (payload.piece_jointe.type or "").partition("/")
+        if not genre or not sous:
+            genre, sous = "application", "octet-stream"
+        partie = MIMEBase(genre, sous)
+        partie.set_payload(donnees)
+        encoders.encode_base64(partie)
+        partie.add_header("Content-Disposition", "attachment", filename=payload.piece_jointe.nom)
+        msg.attach(partie)
+
+    try:
+        creds = credentials_depuis_refresh(dechiffrer(boite.token_oauth))
+        service = build("gmail", "v1", credentials=creds)
+        brut = base64.urlsafe_b64encode(msg.as_bytes()).decode()
+        service.users().messages().send(userId="me", body={"raw": brut}).execute()
+    except (RefreshError, HttpError):
+        raise HTTPException(status_code=502, detail="Envoi impossible pour le moment, reessayez plus tard")
+    return {"envoye": True}
+
+
+class CreationAcces(BaseModel):
+    client_id: uuid.UUID
+    mot_de_passe: str
+
+
+@router.post("/comptes")
+def creer_acces(payload: CreationAcces, authorization: str = EnteteHttp(default=""),
+                db: Session = Depends(get_db)):
+    """L'administrateur cree (ou remet a zero) l'acces d'un client."""
+    admin = utilisateur_connecte(authorization, db)
+    if admin.role != "admin":
+        raise HTTPException(status_code=403, detail="Reserve a l'administrateur")
+    client = (
+        db.query(Client)
+        .filter(Client.id == payload.client_id, Client.proprietaire_id == admin.id).first()
+    )
+    if not client:
+        raise HTTPException(status_code=404, detail="Client introuvable")
+    if len(payload.mot_de_passe) < 6:
+        raise HTTPException(status_code=400, detail="Mot de passe : 6 caracteres minimum")
+
+    compte = None
+    if client.utilisateur_id:
+        compte = db.query(Utilisateur).filter(Utilisateur.id == client.utilisateur_id).first()
+    if compte is None:
+        existant = db.query(Utilisateur).filter(Utilisateur.email == client.email).first()
+        if existant is not None:
+            raise HTTPException(
+                status_code=409,
+                detail="Cette adresse est deja utilisee par un autre compte",
+            )
+        compte = Utilisateur(nom=client.nom, email=client.email, role="client",
+                             mot_de_passe_hash=hash_mot_de_passe(payload.mot_de_passe))
+        db.add(compte)
+        db.flush()
+        client.utilisateur_id = compte.id
+    else:
+        compte.mot_de_passe_hash = hash_mot_de_passe(payload.mot_de_passe)
+    db.commit()
+    return {"ok": True, "identifiant": client.identifiant, "email": client.email}

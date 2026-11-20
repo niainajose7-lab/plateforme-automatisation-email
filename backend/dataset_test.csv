@@ -1,0 +1,61 @@
+﻿expediteur;objet;extrait;etiquette
+compta@sotrapa.mg;Facture FAC-2026-118 à régler;Bonjour, voici la facture FAC-2026-118 pour la prestation de septembre. Net à payer 1 250 000 Ar. Merci de procéder au virement avant le 5 décembre.;facture
+finance@madatech.com;Rappel de paiement;Nous n'avons pas encore reçu le règlement de votre facture n° 7741 d'un montant de 380 000 Ar. Merci de nous le faire parvenir.;facture
+tiana.rakoto@gmail.com;Facture de mon abonnement internet;Ci-joint la facture du mois d'octobre, total 95 000 Ar, échéance le 12 novembre.;facture
+billing@alpha-conseil.com;Votre facture est disponible;Votre facture numéro 5502 de 2 400 euros est disponible en pièce jointe. Date limite de paiement : 30 novembre.;facture
+service@eco-pharma.mg;Avis d'échéance;Veuillez régler le montant de 610 000 Ar correspondant à la facture 3390 émise le 3 novembre.;facture
+hery@agrimad.mg;Facture proforma et règlement;Je vous transmets la facture 889 de 45 000 Ar pour la livraison de semences. Paiement à 30 jours.;facture
+mamy.andria@yahoo.fr;Colis cassé à l'arrivée;Bonjour, j'ai reçu mon ordinateur avec l'écran fissuré. Je suis très déçu et je veux être remboursé ou avoir un échange immédiat.;reclamation
+client123@gmail.com;Je n'ai rien reçu;Cela fait trois semaines que j'attends ma commande 4412, personne ne répond à mes appels. Je suis furieux et je réclame un dédommagement.;reclamation
+sophie.martin@gmail.com;Mécontente de votre service;Le technicien est arrivé avec deux heures de retard et a mal fait son travail. Je dépose une plainte formelle.;reclamation
+contact@habitat-plus.mg;Erreur sur ma facturation;Vous m'avez facturé deux fois le même article, c'est inadmissible. Je demande le remboursement de la somme prélevée en trop.;reclamation
+paul.bernard@gmail.com;Article non conforme;Le produit livré ne correspond pas à la description du site. Je souhaite le retourner et obtenir un avoir.;reclamation
+nadia@gmail.com;Très mauvaise expérience;Votre personnel a été désagréable et le dossier n'a pas avancé depuis un mois. Je veux une explication officielle.;reclamation
+achats@banque-sud.mg;Besoin d'un chiffrage;Nous prévoyons d'équiper nos agences en imprimantes. Pouvez-vous nous communiquer vos tarifs pour 25 unités ?;devis
+jean.randria@gmail.com;Combien pour refaire mon site ?;Bonjour, je cherche une agence pour créer un site vitrine. Quel serait le prix et le délai ?;devis
+direction@univ-tana.mg;Appel d'offres équipement salle informatique;Merci de nous transmettre une offre chiffrée pour 40 postes de travail avec installation.;devis
+lalaina@gmail.com;Estimation de prix;Pourriez-vous m'indiquer le coût d'une formation en comptabilité pour dix personnes ?;devis
+info@ocean-services.mg;Proposition commerciale souhaitée;Nous voulons une cotation pour le nettoyage mensuel de nos bureaux de 300 mètres carrés.;devis
+marc.dubois@yahoo.fr;Tarif climatisation;Quel est le tarif pour la pose de trois climatiseurs dans une maison ? Merci de m'envoyer une estimation.;devis
+logistique@sotrapa.mg;Bon de commande n°2210;Nous commandons 200 cartons de riz, livraison souhaitée à l'entrepôt de Toamasina avant le 15 décembre.;commande
+fanja.ravelo@gmail.com;Je voudrais acheter;Bonjour, je veux commander deux tablettes et un chargeur. Livraison à domicile et paiement à la réception.;commande
+achats@agrimad.mg;Réapprovisionnement mensuel;Veuillez enregistrer notre commande de 50 sacs d'engrais, détail en pièce jointe.;commande
+rasoa@telmada.com;Commande urgente;Merci d'expédier dès demain les 10 cartes SIM professionnelles que nous avons commandées.;commande
+hery.andria@gmail.com;Achat de matériel;Je confirme l'achat de 5 chaises de bureau référence CB-12, envoyez-moi la confirmation.;commande
+approvisionnement@eco-pharma.mg;Nouvelle commande de produits;Nous passons commande de 300 boîtes de gants et 100 masques, à livrer la semaine prochaine.;commande
+etudiant.tana@gmail.com;Dossier de bourse d'excellence;Étudiante en master, je vous envoie mon dossier pour la bourse. Vous trouverez mes relevés de notes et mon projet d'études.;bourse
+scolarite@univ-tana.mg;Bourse d'études 2026;Les étudiants boursiers doivent compléter leur dossier avant la fin du mois. Pièces à joindre : certificat de scolarité.;bourse
+mamy.rakoto@gmail.com;Aide financière pour mes études;Je suis en licence et mes parents ne peuvent pas payer l'université. Comment obtenir une bourse ?;bourse
+lalaina.randria@yahoo.fr;Résultat de ma demande de bourse;Bonjour, où en est mon dossier de bourse déposé en septembre ? Merci de me tenir informé.;bourse
+bourses@banque-sud.mg;Conditions d'attribution de la bourse;Quels sont les critères pour recevoir une bourse et la date de clôture des inscriptions ?;bourse
+tiana.andria@gmail.com;Pièces manquantes pour la bourse;J'ai oublié d'ajouter mon acte de naissance à mon dossier de bourse, je vous le renvoie ci-joint.;bourse
+directeur@alpha-conseil.com;Point d'avancement vendredi;Je vous propose de nous retrouver vendredi à 14h pour faire le point sur le dossier. Êtes-vous disponible ?;reunion
+secretariat@madatech.com;Réunion du comité;La prochaine réunion du comité aura lieu mardi prochain à 9h30 en salle de conférence.;reunion
+paul.randria@gmail.com;Décaler notre rencontre;Je ne pourrai pas venir lundi, pouvons-nous nous voir plutôt mercredi à 10h ?;reunion
+rh@sotrapa.mg;Invitation séminaire;Vous êtes convié au séminaire annuel le 18 décembre à 8h. Merci de confirmer votre participation.;reunion
+sophie.dubois@gmail.com;Rendez-vous chez le notaire;Notre rendez-vous est fixé jeudi à 15h. N'oubliez pas d'apporter vos documents.;reunion
+hery@gmail.com;Visioconférence demain;Pouvons-nous planifier un appel vidéo demain matin à 11h pour discuter du budget ?;reunion
+user456@gmail.com;Impossible d'ouvrir mon compte;Quand je saisis mon identifiant le site affiche une page blanche. Pouvez-vous régler ce dysfonctionnement ?;support
+tech@ocean-services.mg;Mon imprimante n'imprime plus;Depuis ce matin l'imprimante affiche le code erreur 5200 et refuse de fonctionner. Besoin d'un technicien.;support
+nadia.bernard@gmail.com;Application qui se ferme toute seule;Après la mise à jour, l'application se ferme dès que je l'ouvre sur mon téléphone. Que faire ?;support
+admin@univ-tana.mg;Panne du réseau wifi;Le wifi de la bibliothèque est coupé depuis hier. Merci d'envoyer quelqu'un pour le réparer.;support
+mamy@yahoo.fr;Mot de passe oublié;Je n'arrive plus à me connecter et le lien de réinitialisation ne m'arrive pas. Merci de m'aider.;support
+client.pro@habitat-plus.mg;Logiciel de facturation en erreur;Le logiciel plante quand je génère un rapport. Voici la capture de l'erreur affichée.;support
+jean.martin@gmail.com;Postuler au poste de comptable;Madame, Monsieur, je souhaite rejoindre votre équipe comme comptable. Mon CV est en pièce jointe.;candidature
+fanja.rasoa@gmail.com;Ma candidature;Suite à votre annonce, je vous envoie mon CV et ma lettre de motivation pour le poste d'assistante commerciale.;candidature
+tiana@gmail.com;Recherche de stage;Étudiante en informatique, je cherche un stage de trois mois dans votre entreprise. Voici mon curriculum vitae.;candidature
+paul.andria@yahoo.fr;Candidature spontanée en logistique;Diplômé en logistique avec cinq ans d'expérience, je serais heureux de rejoindre vos équipes.;candidature
+rh.candidats@gmail.com;CV pour le poste de développeur;Veuillez trouver mon CV pour l'offre de développeur web publiée sur votre site.;candidature
+nadia.ravelo@gmail.com;Offre d'emploi infirmier;Je postule à l'offre d'infirmière, mon dossier complet est joint à ce message.;candidature
+visiteur@gmail.com;Où êtes-vous situés ?;Bonjour, pouvez-vous me donner votre adresse exacte et vos jours d'ouverture ?;information
+etudiant@gmail.com;Programme de la formation;Je voudrais connaître le contenu de la formation et les conditions d'inscription.;information
+contact@eco-pharma.mg;Questions sur vos produits;J'aimerais savoir quels types de produits vous vendez et si vous livrez en province.;information
+hery.rakoto@yahoo.fr;Numéro de téléphone du service;Quel est le meilleur moyen de joindre votre service client ? Merci pour votre réponse.;information
+curieux@gmail.com;Renseignement sur vos activités;Pouvez-vous me présenter rapidement ce que fait votre association et comment la rejoindre ?;information
+sophie@gmail.com;Informations générales;Je souhaiterais en savoir plus sur vos tarifs d'adhésion et vos horaires.;information
+maman@gmail.com;Joyeux anniversaire !;Mon chéri, je te souhaite un merveilleux anniversaire, on fête ça dimanche en famille.;autre
+ami.paul@gmail.com;Photos du week-end;Regarde les photos de la sortie à la plage, on s'est bien amusés ! À bientôt.;autre
+tiana.rasoa@yahoo.fr;Salut !;Coucou, ça fait longtemps ! Comment se passe ta nouvelle vie ? Donne-moi des nouvelles.;autre
+cousin@gmail.com;Mariage de Hery;Hery et Fanja se marient en juillet, tu es invité à la fête. On compte sur toi.;autre
+voisin@gmail.com;Merci pour votre aide;Merci encore d'avoir gardé mon chat pendant les vacances, c'était très gentil.;autre
+mamy.ravelo@gmail.com;Bonne fête de fin d'année;Je te souhaite de belles fêtes et une année pleine de bonheur, à très vite.;autre
